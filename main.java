@@ -9,6 +9,10 @@ public class main {
         obj.push(33); 
         obj.push(44); 
   
+        StackList objString = new StackList(<String>); 
+        objString.push('44'); 
+        objString.push('44');
+        
         // print Stack elements 
         obj.display(); 
   
