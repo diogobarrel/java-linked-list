@@ -3,12 +3,11 @@ package aed.collections;
 import java.util.Iterator;
 
 // Create Stack Using nexted list 
-public class StackList<T> implements Iterable<T> {
+public class StackList<T> implements Iterable<T>,Cloneable {
 
     // A nexted list node
     public class Node<T> {
         public Node<T> next = null;
-        public int index;
         public T data;
 
         public Node(T data) {
@@ -39,14 +38,12 @@ public class StackList<T> implements Iterable<T> {
 
             @Override
             public T next() {
-                if (currentNode == null) {
-                    return currentNode.data;
+                if (!hasNext()) {
+                    return null;
                 }
-                if (currentNode.next == null) {
-                    throw new Error();
-                }
-                currentNode = currentNode.next;
-                return currentNode.data;
+                T data = top.data;
+                top = top.next; 
+                return data;
             };
         };
     }
@@ -101,6 +98,25 @@ public class StackList<T> implements Iterable<T> {
     public int size() {
         return size;
 
+    }
+
+    public void reverse() {
+        var i = this.iterator();
+        while(i.hasNext()) {
+            i.next();
+        }
+    }
+
+    public StackList<T> shallowCopy() {
+        StackList<T> newStackList = new StackList<T>();
+
+        newStackList.push(top.data);
+        var i = this.iterator();
+        while(i.hasNext()) {
+            newStackList.push(i.next());
+        }
+        this.reverse();
+        return newStackList;
     }
 
 }
