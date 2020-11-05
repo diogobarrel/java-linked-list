@@ -1,8 +1,8 @@
 package aed.collections;
 import java.util.Iterator;
+import java.util.Arrays;
 
 public class QueueArray<T> implements Iterable<T>{
-	
 	
 	private T[] queueArray;
 	public int size, head, rear;
@@ -10,16 +10,14 @@ public class QueueArray<T> implements Iterable<T>{
 	
 	public QueueArray(int max) {
 		this.max = max;
-		this.head = null;
-		this.rear = null;
+		this.head = head;
+		this.rear = rear;
 		this.index = size-1;
-		this.size = 0;
-		this.queueArray = new T[size];
-		
-		
-			
+		this.size = size;
+		queueArray = (T[]) new Object[max];
+				
 	}
-	
+		
 	public boolean isEmpty() {
 		return size == 0;
 		
@@ -59,7 +57,7 @@ public class QueueArray<T> implements Iterable<T>{
 				queueArray[i] = queueArray[i+1];
 			}
 			if (rear < max) {
-				queueArray[rear] = 0;
+				queueArray[rear] = null ;
 			}
 			rear--;
 			size--;
@@ -84,16 +82,26 @@ public class QueueArray<T> implements Iterable<T>{
             		throw new Error();
             	}
             	for (int i = 0; i < rear-1; i++) {
-            		
-            	
-            	return queueArray[head+i];
+               	return queueArray[head+i];
             	};    
             	
                 
             };
-        };
+        };    
     }
 	
+	public <T> T[] arrayCopy(T[] queueArray) {
+		Class<?> arrayType = queueArray.getClass().getComponentType();
+		T[] copy = (T[])java.lang.reflect.Array.newInstance(arrayType, queueArray.length);
+		System.arraycopy(queueArray, 0, copy, 0, queueArray.length);
+		return copy;
+	}
+	
+	public QueueArray<T> shallowCopy() {
+		private T[] newQueueArray;
+		
+		(
+	}
 	
 	
 
