@@ -14,10 +14,8 @@ public class QueueArray<T> implements Iterable<T>{
 		this.rear = rear;
 		this.index = size-1;
 		this.size = size;
-		queueArray = (T[]) new Object[max];
-				
-	}
-		
+		queueArray = (T[]) new Object[max];			
+	}	
 	public boolean isEmpty() {
 		return size == 0;
 		
@@ -31,13 +29,12 @@ public class QueueArray<T> implements Iterable<T>{
 		if(isEmpty()) {
 			return null;
 		}
-		
 		return queueArray[rear];
-		
+
 	}
 	public void enqueue(T item) {
 		if(rear == max) {
-			throw new OutOfMemoryError();
+			 throw new Exception("OutOfMemoryError");
 			
 		}
 		else {
@@ -45,7 +42,6 @@ public class QueueArray<T> implements Iterable<T>{
 			rear++;
 			size++;
 		}
-		return;
 	}
 	
 	public T dequeue() {
@@ -57,13 +53,12 @@ public class QueueArray<T> implements Iterable<T>{
 				queueArray[i] = queueArray[i+1];
 			}
 			if (rear < max) {
-				queueArray[rear] = null ;
+				return queueArray[rear] = null ;
 			}
 			rear--;
 			size--;
 		}
 		return queueArray[rear];
-		
 	}
 	
 	@Override
@@ -83,26 +78,19 @@ public class QueueArray<T> implements Iterable<T>{
             	}
             	for (int i = 0; i < rear-1; i++) {
                	return queueArray[head+i];
-            	};    
-            	
-                
-            };
+            	};             	
+             };
         };    
     }
 	
-	public <T> T[] arrayCopy(T[] queueArray) {
-		Class<?> arrayType = queueArray.getClass().getComponentType();
-		T[] copy = (T[])java.lang.reflect.Array.newInstance(arrayType, queueArray.length);
-		System.arraycopy(queueArray, 0, copy, 0, queueArray.length);
-		return copy;
-	}
-	
 	public QueueArray<T> shallowCopy() {
-		private T[] newQueueArray;
-		
-		(
 	}
 	
+	public void main(String[] args) {
+		
+		QueueArray<T> newTest = (T[]) new Object();
+		
+		
+	}
 	
-
-}
+}	
