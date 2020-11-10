@@ -6,14 +6,14 @@ public class QueueArray<T> implements Iterable<T>{
 	
 	private T[] queueArray;
 	public int size, head, rear;
-	private int max, index;
+	private int max;
 	
+	@SuppressWarnings("unchecked")
 	public QueueArray(int max) {
 		this.max = max;
-		this.head = head;
-		this.rear = rear;
-		this.index = size-1;
-		this.size = size;
+		this.head = -1;
+		this.rear = -1;
+		this.size = 0;
 		queueArray = (T[]) new Object[max];			
 	}	
 	public boolean isEmpty() {
@@ -33,38 +33,54 @@ public class QueueArray<T> implements Iterable<T>{
 
 	}
 	public void enqueue(T item) {
-		if(rear == max) {
-			 throw new Exception("OutOfMemoryError");
-			
+		if(size == max) {
+			System.out.println("Out of Memory Error!");
 		}
-		else {
-			queueArray[rear] = item;
+		
+		else if (isEmpty()) {
+			queueArray[0] = item;
 			rear++;
+			head++;
 			size++;
+		}
+		
+		
+		else{
+			for (int i = 0; i <= size-1; i++) {
+				queueArray[i] = queueArray[i+1];
+							
+			}
+			queueArray[head] = item;
+			size++;
+			rear++;
+			
+		
 		}
 	}
 	
 	public T dequeue() {
 		if(isEmpty()) {
 			return null;
-		}
+					}
+		/*Condicional que seja sempre verdade, enquanto size > 0, visando 
+		 *somente retornar rear, sem acabar o resto do método.
+		 */
 		else {
-			for(int i = 0; i < rear -1; i++) {
-				queueArray[i] = queueArray[i+1];
-			}
-			if (rear < max) {
-				return queueArray[rear] = null ;
-			}
+			T dataRear = queueArray[rear];
 			rear--;
-			size--;
+			queueArray[rear+1] = null;
+		
+			return dataRear;
+			
 		}
-		return queueArray[rear];
+		
+		
 	}
 	
 	@Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-  	
+        	
       
             @Override
             public boolean hasNext() {
@@ -73,24 +89,21 @@ public class QueueArray<T> implements Iterable<T>{
 
             @Override
             public T next() {
-            	if(isEmpty()) {
+            	if(!hasNext()) {
             		throw new Error();
             	}
-            	for (int i = 0; i < rear-1; i++) {
-               	return queueArray[head+i];
-            	};             	
+           		
+            	T data = queueArray[head+1];
+           		head = head + 1;
+           		return data;
+            	};            	
              };
         };    
-    }
+
 	
 	public QueueArray<T> shallowCopy() {
+		return null;
 	}
 	
-	public void main(String[] args) {
-		
-		QueueArray<T> newTest = (T[]) new Object();
-		
-		
-	}
-	
-}	
+}
+
