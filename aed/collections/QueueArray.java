@@ -1,20 +1,21 @@
 package aed.collections;
 import java.util.Iterator;
 import java.util.Arrays;
+import java.lang.OutOfMemoryError;
 
 public class QueueArray<T> implements Iterable<T>{
 	
-	private T[] queueArray;
+	private T queueArray[];
 	public int size, head, rear;
-	private int max;
+	private int maxSize;
 	
 	@SuppressWarnings("unchecked")
 	public QueueArray(int max) {
-		this.max = max;
-		this.head = -1;
-		this.rear = -1;
-		this.size = 0;
-		queueArray = (T[]) new Object[max];			
+		maxSize = max+1;
+		head = 1;
+		rear = 0;
+		size = 0;
+		queueArray = (T[]) new Object[maxSize];			
 	}	
 	public boolean isEmpty() {
 		return size == 0;
@@ -32,31 +33,17 @@ public class QueueArray<T> implements Iterable<T>{
 		return queueArray[rear];
 
 	}
-	public void enqueue(T item) {
-		if(size == max) {
-			System.out.println("Out of Memory Error!");
+	public void enqueue(T item) throws OutOfMemoryError {
+		if(((rear + 2) % maxSize) == head) {
+			throw new OutOfMemoryError();
 		}
 		
-		else if (isEmpty()) {
-			queueArray[0] = item;
-			rear++;
-			head++;
-			size++;
-		}
+		rear = (rear + 1) % maxSize;
+		queueArray[rear] = item;
+		size++;
+	}	
 		
-		
-		else{
-			for (int i = 0; i <= size-1; i++) {
-				queueArray[i] = queueArray[i+1];
-							
-			}
-			queueArray[head] = item;
-			size++;
-			rear++;
-			
-		
-		}
-	}
+	
 	
 	public T dequeue() {
 		if(isEmpty()) {
@@ -65,13 +52,9 @@ public class QueueArray<T> implements Iterable<T>{
 		/*Condicional que seja sempre verdade, enquanto size > 0, visando 
 		 *somente retornar rear, sem acabar o resto do método.
 		 */
-		else {
-			T dataRear = queueArray[rear];
-			rear--;
-			queueArray[rear+1] = null;
-		
-			return dataRear;
-			
+		T dataHead = queueArray[head];
+		head = (head + 1) % maxSize;
+		return dataHead;	
 		}
 		
 		
@@ -84,7 +67,7 @@ public class QueueArray<T> implements Iterable<T>{
       
             @Override
             public boolean hasNext() {
-            	return queueArray[head+1] != null;
+            	return (((rear + 2) % maxSize) == head);
             }
 
             @Override
