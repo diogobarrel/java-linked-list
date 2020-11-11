@@ -14,17 +14,15 @@ public class QueueArray<T> implements Iterable<T> {
 		maxSize = max + 1;
 		head = 1;
 		rear = 0;
-		size = 0;
 		queueArray = (T[]) new Object[maxSize];
 	}
 
 	public boolean isEmpty() {
-		return size == 0;
-
+		return head - rear == 1;
 	}
 
 	public int size() {
-		return size;
+		return ((head+maxSize) - head + 1) % maxSize;
 	}
 
 	public T peek() {
@@ -42,7 +40,7 @@ public class QueueArray<T> implements Iterable<T> {
 
 		rear = (rear + 1) % maxSize;
 		queueArray[rear] = item;
-		size++;
+		
 	}
 
 	public T dequeue() {
