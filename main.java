@@ -9,7 +9,14 @@ public class main {
     	
     	newTeste.enqueue("Cabeça");
     	newTeste.enqueue("de Mamona");
+    	newTeste.enqueue("de Mamona");
+    	newTeste.enqueue("de Mamona");
     	
+    	
+    	
+    	
+    
+    	/*
         StackList obj = new StackList<Integer>(); 
         // insert Stack value 
         obj.push(11); 
@@ -38,5 +45,6 @@ public class main {
   
         // print Top element of Stack 
         System.out.printf("\nTop element is %d\n", obj.peek()); 
+    	*/
     }
 }

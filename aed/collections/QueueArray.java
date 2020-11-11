@@ -11,18 +11,19 @@ public class QueueArray<T> implements Iterable<T> {
 
 	@SuppressWarnings("unchecked")
 	public QueueArray(int max) {
-		maxSize = max + 1;
-		head = 1;
+		size = 0;
+		maxSize = max;
+		head = 0;
 		rear = 0;
 		queueArray = (T[]) new Object[maxSize];
 	}
 
 	public boolean isEmpty() {
-		return head - rear == 1;
+		return size == 0;
 	}
 
 	public int size() {
-		return ((head+maxSize) - head + 1) % maxSize;
+		return size;
 	}
 
 	public T peek() {
@@ -33,13 +34,15 @@ public class QueueArray<T> implements Iterable<T> {
 
 	}
 
-	public void enqueue(T item) throws OutOfMemoryError {
-		if (((rear + 2) % maxSize) == head) {
+	public void enqueue(T item)  {
+		if (size == maxSize) {
 			throw new OutOfMemoryError();
 		}
-
-		rear = (rear + 1) % maxSize;
+		
 		queueArray[rear] = item;
+		rear = (rear + 1) % maxSize;
+		size++;
+		
 		
 	}
 
@@ -47,35 +50,42 @@ public class QueueArray<T> implements Iterable<T> {
 		if (isEmpty()) {
 			return null;
 		}
-		/*
-		 * Condicional que seja sempre verdade, enquanto size > 0, visando somente
-		 * retornar rear, sem acabar o resto do método.
-		 */
+		
 		T dataHead = queueArray[head];
+		size--;
 		head = (head + 1) % maxSize;
 		return dataHead;
+	}
+	
+	private class QueueIterator implements Iterator<T> {
+		int currentNext;
+		
+		public QueueIterator() {
+			this.currentNext = rear;
+		}
+		@Override
+		public boolean hasNext() {			
+			return currentNext != head;
+			
+		}
+			
+		
+
+		@Override
+		public T next() {
+			if (!hasNext()) {
+				throw new Error();
+			}
+
+			T data = queueArray[head + 1];
+			head = head + 1;
+			return data;
+		};
 	}
 
 	@Override
 	public Iterator<T> iterator() {
-		return new Iterator<T>() {
-
-			@Override
-			public boolean hasNext() {
-				return (((rear + 2) % maxSize) == head);
-			}
-
-			@Override
-			public T next() {
-				if (!hasNext()) {
-					throw new Error();
-				}
-
-				T data = queueArray[head + 1];
-				head = head + 1;
-				return data;
-			};
-		};
+		return new QueueIterator();
 	};
 
 	public QueueArray<T> shallowCopy() {
