@@ -61,8 +61,6 @@ public class QueueArray<T> implements Iterable<T> {
 		
 		int currentNext;
 		
-		
-		
 		public QueueIterator() {
 			this.currentNext = head;
 		// Tem que arrumar esse hasNext()
@@ -71,7 +69,6 @@ public class QueueArray<T> implements Iterable<T> {
 		@Override
 		public boolean hasNext() {			
 			return currentNext > rear;
-			
 		}
 			
 		

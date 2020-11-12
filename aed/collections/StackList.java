@@ -3,16 +3,16 @@ package aed.collections;
 import java.util.Iterator;
 
 // Create Stack Using nexted list 
-public class StackList<T> implements Iterable<T>,Cloneable {
+public class StackList<T> implements Iterable<T> {
 
     // A nexted list node
-    public class Node<T> {
+    public class Node<T>{
         public Node<T> next = null;
         public T data;
 
         public Node(T data) {
             this.data = data;
-        }
+        };
     }
 
     // create global top reference variable global
@@ -25,15 +25,17 @@ public class StackList<T> implements Iterable<T>,Cloneable {
         this.size = 0;
     }
     
-    @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-
-            private Node<T> currentNode = null;
+    private class StackIterator implements Iterator<T> {
+    	
+    	Node<T> currentNode;
+    	
+    	public StackIterator() {
+    		currentNode = top;    	
+    	}
 
             @Override
             public boolean hasNext() {
-                return currentNode != top;
+                return currentNode != null;
             }
 
             @Override
@@ -45,8 +47,12 @@ public class StackList<T> implements Iterable<T>,Cloneable {
                 top = top.next; 
                 return data;
             };
-        };
+        }
+    @Override
+    public Iterator<T> iterator(){
+    	return new StackIterator();
     }
+    
 
     // Utility function to add an element x in the stack
     public void push(T x) {  // insert at the beginning
@@ -73,6 +79,7 @@ public class StackList<T> implements Iterable<T>,Cloneable {
     // Utility function to return top element in a stack
     public T peek() {
         // check for empty stack
+    	
         if (!isEmpty()) {
             return top.data;
         }
@@ -80,19 +87,17 @@ public class StackList<T> implements Iterable<T>,Cloneable {
         return null;
     }
 
-    // Utility function to pop top element from the stack
-    public T pop() // remove at the beginning
+    
+    public T pop() 
     {
-        // check for stack underflow
         if (top == null) {
             return null;
         }
-
-        size--; // updating stack size
+        
+        size--; 
         var topData = top.data;
         top = top.next;
         return topData;
-
     }
 
     public int size() {
@@ -100,22 +105,38 @@ public class StackList<T> implements Iterable<T>,Cloneable {
 
     }
 
-    public void reverse() {
-        var i = this.iterator();
-        while(i.hasNext()) {
-            i.next();
-        }
+    public T lastData() {
+    	if (isEmpty()) {
+    		return null;
+    	}
+    	else if (top.next == null) {
+    		return top.data;
+    	}
+    	while(top.next != null) {
+    		top = top.next;
+    	}
+    	return top.data;
     }
 
-    public StackList<T> shallowCopy() {
-        StackList<T> newStackList = new StackList<T>();
-
+    public StackList<T> shallowCopy() {  	
+    	
+    	StackList<T> newStackList = new StackList<T>();
+        /*
         newStackList.push(top.data);
         var i = this.iterator();
         while(i.hasNext()) {
             newStackList.push(i.next());
         }
-        this.reverse();
+        */
+        
+        
+        var i = this.iterator();
+        
+        while(!i.hasNext()) {
+        	Node<T> cNode = new Node<T>(lastData());	
+        	newStackList.push(cNode.data);
+    
+        }               
         return newStackList;
     }
 
