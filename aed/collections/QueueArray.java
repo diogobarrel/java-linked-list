@@ -30,7 +30,7 @@ public class QueueArray<T> implements Iterable<T> {
 		if (isEmpty()) {
 			return null;
 		}
-		return queueArray[rear];
+		return queueArray[head];
 
 	}
 
@@ -58,14 +58,19 @@ public class QueueArray<T> implements Iterable<T> {
 	}
 	
 	private class QueueIterator implements Iterator<T> {
+		
 		int currentNext;
 		
+		
+		
 		public QueueIterator() {
-			this.currentNext = rear;
+			this.currentNext = head;
+		// Tem que arrumar esse hasNext()
+			
 		}
 		@Override
 		public boolean hasNext() {			
-			return currentNext != head;
+			return currentNext > rear;
 			
 		}
 			
@@ -77,8 +82,8 @@ public class QueueArray<T> implements Iterable<T> {
 				throw new Error();
 			}
 
-			T data = queueArray[head + 1];
-			head = head + 1;
+			T data = queueArray[head];
+			head = (head + 1) % maxSize;
 			return data;
 		};
 	}

@@ -1,16 +1,35 @@
+import java.util.Iterator;
+
 import aed.collections.QueueArray;
 
 public class main {
     public static void main(String[] args) {
     	
-    	QueueArray<String> queueArray = (QueueArray<String>) new QueueArray(2);
+    	QueueArray<String> queueArray = (QueueArray<String>) new QueueArray(10);
 		QueueArray<String> newTeste = queueArray;
     	   	
     	
     	newTeste.enqueue("Cabeça");
     	newTeste.enqueue("de Mamona");
-    	newTeste.enqueue("de Mamona");
-    	newTeste.enqueue("de Mamona");
+    	newTeste.enqueue("de Melancia");
+    	newTeste.enqueue("de Mamão");
+    	
+Iterator<String> itr = newTeste.iterator();
+    	
+    	itr.hasNext();
+    	System.out.println(itr.hasNext());
+    	System.out.println(itr.next());
+    	System.out.println(itr.hasNext());
+    	System.out.println(itr.next());
+    	System.out.println(itr.hasNext());
+    	System.out.println(itr.next());
+    	System.out.println(itr.hasNext());
+    	System.out.println(itr.next());
+    	System.out.println(itr.hasNext());
+    	System.out.println(itr.next());
+    	System.out.println(itr.hasNext());
+    	System.out.println(itr.hasNext());
+    	
     	
     	
     	
