@@ -7,7 +7,7 @@ public class QueueArray<T> implements Iterable<T> {
 
 	private T queueArray[];
 	public int size, head, rear;
-	private int maxSize;
+	public int maxSize;
 
 	@SuppressWarnings("unchecked")
 	public QueueArray(int max) {
@@ -64,9 +64,10 @@ public class QueueArray<T> implements Iterable<T> {
 	private class QueueIterator implements Iterator<T> {
 
 		private int index;
+		private int itHead;
 
 		public QueueIterator() {
-			index = head;
+			index = itHead = head;
 		}
 
 		@Override
@@ -80,8 +81,8 @@ public class QueueArray<T> implements Iterable<T> {
 				return null;
 			}
 
-			T oldHead = queueArray[head];
-			head = circularNext();
+			T oldHead = queueArray[itHead];
+			itHead = circularNext();
 			index++;
 			return oldHead;
 		};

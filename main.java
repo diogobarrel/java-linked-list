@@ -7,6 +7,7 @@ public class main {
 
         QueueArray<String> newTeste = new QueueArray(10);
         Iterator<String> itr = newTeste.iterator();
+        Iterator<String> itr2 = newTeste.iterator();
 
         newTeste.enqueue("Algoritmo");
         newTeste.enqueue("e");
@@ -14,18 +15,12 @@ public class main {
         newTeste.enqueue("De");
         newTeste.enqueue("Dados");
 
-        System.out.println(itr.hasNext());
-        System.out.println(itr.next());
-        System.out.println(itr.hasNext());
-        System.out.println(itr.next());
-        System.out.println(itr.hasNext());
-        System.out.println(itr.next());
-        System.out.println(itr.hasNext());
-        System.out.println(itr.next());
-        System.out.println(itr.hasNext());
-        System.out.println(itr.next());
-        System.out.println(itr.hasNext());
-        System.out.println(itr.hasNext());
+        for (int i = 0; i < newTeste.maxSize; i++) {
+            System.out.println(itr.hasNext());
+            System.out.println(itr.next());
+            System.out.println(itr2.hasNext());
+            System.out.println(itr2.next());
+        }
         // StackList obj = new StackList<Integer>();
         // // insert Stack value
         // obj.push(11);
