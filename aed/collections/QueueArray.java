@@ -34,44 +34,41 @@ public class QueueArray<T> implements Iterable<T> {
 
 	}
 
-	public void enqueue(T item)  {
+	public void enqueue(T item) {
 		if (size == maxSize) {
 			throw new OutOfMemoryError();
 		}
-		
+
 		queueArray[rear] = item;
 		rear = (rear + 1) % maxSize;
 		size++;
-		
-		
+
 	}
 
 	public T dequeue() {
 		if (isEmpty()) {
 			return null;
 		}
-		
+
 		T dataHead = queueArray[head];
 		size--;
 		head = (head + 1) % maxSize;
 		return dataHead;
 	}
-	
+
 	private class QueueIterator implements Iterator<T> {
-		
-		int currentNext;
-		
-		public QueueIterator() {
-			this.currentNext = head;
-		// Tem que arrumar esse hasNext()
-			
-		}
+
 		@Override
-		public boolean hasNext() {			
-			return currentNext > rear;
+		public boolean hasNext() {
+			if (queueArray[circularNext()] == null) {
+				return false;
+			}
+			return true;
 		}
-			
-		
+
+		private Integer circularNext() {
+			return (head + 1) % maxSize;
+		}
 
 		@Override
 		public T next() {
@@ -80,7 +77,7 @@ public class QueueArray<T> implements Iterable<T> {
 			}
 
 			T data = queueArray[head];
-			head = (head + 1) % maxSize;
+			head = circularNext();
 			return data;
 		};
 	}
