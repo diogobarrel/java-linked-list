@@ -71,7 +71,7 @@ public class QueueArray<T> implements Iterable<T> {
 
 		@Override
 		public boolean hasNext() {
-			return index <= size;
+			return index < size;
 		}
 
 		@Override
@@ -80,9 +80,10 @@ public class QueueArray<T> implements Iterable<T> {
 				return null;
 			}
 
+			T oldHead = queueArray[head];
 			head = circularNext();
 			index++;
-			return queueArray[head];
+			return oldHead;
 		};
 	}
 

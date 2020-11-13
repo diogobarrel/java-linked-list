@@ -8,10 +8,11 @@ public class main {
         QueueArray<String> newTeste = new QueueArray(10);
         Iterator<String> itr = newTeste.iterator();
 
-        newTeste.enqueue("Cabeça");
-        newTeste.enqueue("de Mamona");
-        newTeste.enqueue("de Melancia");
-        newTeste.enqueue("de Mamão");
+        newTeste.enqueue("Algoritmo");
+        newTeste.enqueue("e");
+        newTeste.enqueue("Estrutura");
+        newTeste.enqueue("De");
+        newTeste.enqueue("Dados");
 
         System.out.println(itr.hasNext());
         System.out.println(itr.next());
