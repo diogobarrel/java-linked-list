@@ -5,8 +5,7 @@ import aed.collections.QueueArray;
 public class main {
     public static void main(String[] args) {
 
-        QueueArray<String> queueArray = (QueueArray<String>) new QueueArray(10);
-        QueueArray<String> newTeste = queueArray;
+        QueueArray<String> newTeste = new QueueArray(10);
         Iterator<String> itr = newTeste.iterator();
 
         newTeste.enqueue("Cabeça");

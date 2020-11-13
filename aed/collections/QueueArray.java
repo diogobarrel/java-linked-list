@@ -11,11 +11,38 @@ public class QueueArray<T> implements Iterable<T> {
 
 	@SuppressWarnings("unchecked")
 	public QueueArray(int max) {
-		size = 0;
 		maxSize = max;
-		head = 0;
-		rear = 0;
+		this.head = this.rear = this.size = 0;
 		queueArray = (T[]) new Object[maxSize];
+	}
+
+	public Integer circularNext() {
+		return (head + 1) % maxSize;
+	}
+
+	public Integer circularRear() {
+		return (rear + 1) % maxSize;
+	}
+
+	public void enqueue(T item) {
+		if (size == maxSize) {
+			throw new OutOfMemoryError();
+		}
+
+		queueArray[rear] = item;
+		rear = circularRear();
+		size++;
+	}
+
+	public T dequeue() {
+		if (isEmpty()) {
+			return null;
+		}
+
+		T dataHead = queueArray[head];
+		size--;
+		head = circularNext();
+		return dataHead;
 	}
 
 	public boolean isEmpty() {
@@ -34,51 +61,28 @@ public class QueueArray<T> implements Iterable<T> {
 
 	}
 
-	public void enqueue(T item) {
-		if (size == maxSize) {
-			throw new OutOfMemoryError();
-		}
-
-		queueArray[rear] = item;
-		rear = (rear + 1) % maxSize;
-		size++;
-
-	}
-
-	public T dequeue() {
-		if (isEmpty()) {
-			return null;
-		}
-
-		T dataHead = queueArray[head];
-		size--;
-		head = (head + 1) % maxSize;
-		return dataHead;
-	}
-
 	private class QueueIterator implements Iterator<T> {
+
+		private int index;
+
+		public QueueIterator() {
+			index = head;
+		}
 
 		@Override
 		public boolean hasNext() {
-			if (queueArray[circularNext()] == null) {
-				return false;
-			}
-			return true;
-		}
-
-		private Integer circularNext() {
-			return (head + 1) % maxSize;
+			return index <= size;
 		}
 
 		@Override
 		public T next() {
 			if (!hasNext()) {
-				throw new Error();
+				return null;
 			}
 
-			T data = queueArray[head];
 			head = circularNext();
-			return data;
+			index++;
+			return queueArray[head];
 		};
 	}
 
