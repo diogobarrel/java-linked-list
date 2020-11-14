@@ -16,7 +16,7 @@ public class StackList<T> implements Iterable<T> {
     }
 
     // create global top reference variable global
-    Node<T> top;
+    public Node<T> top;
     int size;
 
     // Constructor
@@ -25,42 +25,11 @@ public class StackList<T> implements Iterable<T> {
         this.size = 0;
     }
 
-    private class StackIterator implements Iterator<T> {
-
-        Node<T> currentNode;
-
-        public StackIterator() {
-            currentNode = top;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return currentNode != null;
-        }
-
-        @Override
-        public T next() {
-            if (!hasNext()) {
-                return null;
-            }
-            T data = top.data;
-            top = top.next;
-            return data;
-        };
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return new StackIterator();
-    }
-
     // Utility function to add an element x in the stack
     public void push(T x) { // insert at the beginning
         // create new node newNode and allocate memory
         Node<T> newNode = new Node<T>(x);
-        if (newNode == null) {
-            return; // stack underflow
-        }
+
 
         // put top reference into newNode next
         newNode.next = top;
@@ -91,9 +60,10 @@ public class StackList<T> implements Iterable<T> {
             return null;
         }
 
-        size--;
+        
         var topData = top.data;
         top = top.next;
+        size--;
         return topData;
     }
 
@@ -114,22 +84,53 @@ public class StackList<T> implements Iterable<T> {
         return top.data;
     }
 
-    public StackList<T> shallowCopy() {
 
-        StackList<T> newStackList = new StackList<T>();
-        /*
-         * newStackList.push(top.data); var i = this.iterator(); while(i.hasNext()) {
-         * newStackList.push(i.next()); }
-         */
+    private class StackIterator implements Iterator<T> {
 
-        var i = this.iterator();
+        public Node<T> currentNode = top;
+        
 
-        while (!i.hasNext()) {
-            Node<T> cNode = new Node<T>(lastData());
-            newStackList.push(cNode.data);
-
+        public StackIterator() {
+            currentNode = top;
+            
+            
         }
-        return newStackList;
+
+        @Override
+        public boolean hasNext() {
+        	return currentNode != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                return null;
+            }
+            T data = currentNode.data;
+            currentNode = currentNode.next;
+            return data;
+        };
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return new StackIterator();
+    }  
+        
+    public StackList<T> shallowCopy() {
+    	
+  	
+        StackList<T> newStackList = new StackList<T>();
+        
+        var i = this.iterator();
+        while (newStackList.size != size() ) {
+        	while (!i.hasNext()) {
+        		newStackList.push(i.next());
+            }
+
+        }
+                return newStackList;
+    }
+    
+	
 }

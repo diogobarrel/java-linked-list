@@ -67,7 +67,8 @@ public class QueueArray<T> implements Iterable<T> {
 		private int itHead;
 
 		public QueueIterator() {
-			index = itHead = head;
+			index = 0;
+			itHead = head;
 		}
 
 		@Override
@@ -82,7 +83,7 @@ public class QueueArray<T> implements Iterable<T> {
 			}
 
 			T oldHead = queueArray[itHead];
-			itHead = circularNext();
+			itHead = (itHead + 1) % maxSize;
 			index++;
 			return oldHead;
 		};
@@ -94,6 +95,18 @@ public class QueueArray<T> implements Iterable<T> {
 	};
 
 	public QueueArray<T> shallowCopy() {
-		return null;
-	}
+		
+		QueueArray<T> newQueue = new QueueArray<T>(maxSize);
+		
+		
+
+		T oldQueueHead = peek();
+		
+		while(newQueue.size() < size) {
+			while(i.hasNext()) {
+				newQueue.enqueue(oldQueueHead);			
+			}
+		}
+		return newQueue;
+	};
 }

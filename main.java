@@ -1,10 +1,13 @@
+import java.util.Currency;
 import java.util.Iterator;
+
 import aed.collections.StackList;
 import aed.collections.QueueArray;
 
 public class main {
     public static void main(String[] args) {
-
+    	
+    	/*
         QueueArray<String> newTeste = new QueueArray(10);
         Iterator<String> itr = newTeste.iterator();
         Iterator<String> itr2 = newTeste.iterator();
@@ -21,41 +24,70 @@ public class main {
             System.out.println(itr2.hasNext());
             System.out.println(itr2.next());
         }
-        // StackList obj = new StackList<Integer>();
+        */
+        
+        StackList<Integer> newStack = new StackList<Integer>();
+        Iterator<Integer> itr = newStack.iterator();
+        
         // // insert Stack value
-        // obj.push(11);
-        // obj.push(22);
-        // obj.push(33);
-        // obj.push(44);
-
-        // StackList objString = new StackList<String>();
-        // objString.push("44");
-        // objString.push("44");
-
+        newStack.push(11);
+        newStack.push(22);
+        newStack.push(33);
+        newStack.push(44);
+        
+        
+        
+        StackList newStackString = new StackList<String>();
+        newStackString.push("44");
+        newStackString.push("44");
+        
+        
+        
+        
+        
+        /*
         // // print Stack elements
-        // var obj2 = obj.shallowCopy();
-        // var obj3 = obj.shallowCopy();
+        var newStack2 = newStack.shallowCopy();
+        var newStack3 = newStack.shallowCopy();
 
-        // // print Top element of Stack
-        // System.out.printf("\nTop element is %d\n", obj.peek());
-        // System.out.printf("\nTop element is %d\n", (obj2).peek());
-        // System.out.printf("\nTop element is %d\n", obj3.peek());
-
+        /* print Top element of Stack
+        System.out.printf("\nTop element is %d\n", newStack.peek());
+        System.out.printf("\nTop element is %d\n", (newStack2).peek());
+        System.out.printf("\nTop element is %d\n", newStack3.peek());
+        */
         // // Delete top element of Stack
-        // obj.pop();
-        // obj.pop();
+        
 
         // // print Stack elements
 
         // // print Top element of Stack
-        // System.out.printf("\nTop element is %d\n", obj.peek());
-        // var a = new Object();
-        // System.out.println(a);
-        // if ((Boolean) a) {
-        // System.out.println("Verdade");
-        // } else {
-        // System.out.println("Falso");
-        // }
+        
+        System.out.printf("\nTop element is %d\n", newStack.peek());
+        System.out.println(itr.hasNext());
+        System.out.println(itr.next());
+        System.out.println(newStack.pop());
+        System.out.printf("\nTop element is %d\n", newStack.peek());
+        System.out.println(itr.hasNext());
+        System.out.println(itr.next());
+        System.out.println(newStack.pop());
+        System.out.printf("\nTop element is %d\n", newStack.peek());
+        System.out.println(itr.hasNext());
+        System.out.println(itr.next());
+        System.out.println(newStack.pop());
+        System.out.printf("\nTop element is %d\n", newStack.peek());
+        System.out.println(itr.hasNext());
+        System.out.println(itr.next());
+        System.out.println(newStack.pop());
+        System.out.printf("\nTop element is %d\n", newStack.peek());
+        System.out.println(itr.hasNext());
+        System.out.println(itr.next());
+        System.out.println(newStack.pop());
+        
+        
+        //aed.collections.StackList$Node@4b1210ee
+        
 
+       
+         
     }
 }
